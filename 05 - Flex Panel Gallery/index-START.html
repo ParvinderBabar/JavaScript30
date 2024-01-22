@@ -27,9 +27,13 @@
     .panels {
       min-height: 100vh;
       overflow: hidden;
+      display: flex; 
+      
     }
 
     .panel {
+      flex: 1;
+      
       background: #6B0F9C;
       box-shadow: inset 0 0 0 5px rgba(255,255,255,0.1);
       color: white;
@@ -44,6 +48,11 @@
       font-size: 20px;
       background-size: cover;
       background-position: center;
+      justify-content: center;
+     display: flex;
+     flex-direction: column;
+      
+      
     }
 
     .panel1 { background-image:url(https://source.unsplash.com/gYl-UtwNg_I/1500x1500); }
@@ -52,13 +61,37 @@
     .panel4 { background-image:url(https://source.unsplash.com/ITjiVXcwVng/1500x1500); }
     .panel5 { background-image:url(https://source.unsplash.com/3MNzGlQM7qs/1500x1500); }
 
-    /* Flex Children */
+    /* Flex item */
     .panel > * {
       margin: 0;
       width: 100%;
       transition: transform 0.5s;
-    }
+      border:1px solid red;
+     
+    align-items: center;
+    text-align: center;
+    flex: 1 0 auto;
+    display: flex;
+    justify-content: center;
+      
+      
 
+
+    }
+.panel>*:first-child{
+  transform: translateY(-100%);
+
+}
+.panel.open-active>*:first-child{
+  transform: translateY(0);
+
+}
+.panel>*:last-child{transform: translateY(100%);
+}
+.panel.open-active>*:last-child{
+  transform: translateY(0);
+
+}
     .panel p {
       text-transform: uppercase;
       font-family: 'Amatic SC', cursive;
@@ -71,6 +104,7 @@
     }
 
     .panel.open {
+      flex: 5;
       font-size: 40px;
     }
 
@@ -106,6 +140,25 @@
   </div>
 
   <script>
+const panels= document.querySelectorAll(".panel");
+
+  function ToggleOpen()
+{
+  console.log("wokring");
+  this.classList.toggle('open');
+
+}
+function activeToggle(e)
+{
+  // this.classList.toggle('transitio')
+  
+console.log(e.propertyName);
+if(e.propertyName.includes('flex')){
+  this.classList.toggle('open-active');
+}
+}
+panels.forEach(panel =>panel.addEventListener('click',ToggleOpen));
+  panels.forEach(panel => panel.addEventListener("transitionend", activeToggle));
 
   </script>
 
